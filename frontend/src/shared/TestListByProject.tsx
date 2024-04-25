@@ -9,7 +9,11 @@ import TestCard from "./TestCard";
 
 const LIMIT = 10;
 
-const TestListComponent: React.FC = () => {
+interface Props {
+  projectId?: number;
+}
+
+const TestListByProject: React.FC<Props> = ({ projectId }) => {
   const [testSuites, setTestSuites] = useState<TestSuite[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -18,11 +22,12 @@ const TestListComponent: React.FC = () => {
   const [orderDirection, setOrderDirection] = useState("DESC");
 
   useEffect(() => {
-    if (isUpdated || !filteredTestSuites.length) {
-      fetchTestSuites(currentPage, LIMIT, orderBy, orderDirection);
+    if (projectId !== undefined && (isUpdated || !filteredTestSuites.length)) {
+      fetchTestSuites(currentPage, LIMIT, orderBy, orderDirection, projectId);
       setIsUpdated(false);
     }
   }, [
+    projectId, // Agrega projectId a las dependencias para asegurarte de que se re-evalúa cuando cambie
     isUpdated,
     currentPage,
     filteredTestSuites.length,
@@ -30,23 +35,16 @@ const TestListComponent: React.FC = () => {
     orderDirection,
   ]);
 
-  useEffect(() => {
-    if (filteredTestSuites.length) {
-      setTotalPages(Math.ceil(filteredTestSuites.length / LIMIT));
-      setTestSuites(
-        filteredTestSuites.slice((currentPage - 1) * LIMIT, currentPage * LIMIT)
-      );
-    }
-  }, [currentPage, filteredTestSuites]);
-
   const fetchTestSuites = async (
     page: number,
     pageSize: number,
     orderBy: string,
-    orderDirection: string
+    orderDirection: string,
+    projectId: number // projectId ahora es requerido, no opcional
   ) => {
     try {
-      const data = await apiService.fetchTestSuites(
+      const data = await apiService.getTestSuitesByProjectId(
+        projectId,
         page,
         pageSize,
         orderBy,
@@ -69,7 +67,9 @@ const TestListComponent: React.FC = () => {
   };
 
   const handleResetResults = () => {
-    fetchTestSuites(currentPage, LIMIT, orderBy, orderDirection);
+    if (projectId !== undefined) {
+      fetchTestSuites(currentPage, LIMIT, orderBy, orderDirection, projectId);
+    }
   };
 
   const handlePageChange = (page: number) => {
@@ -88,10 +88,11 @@ const TestListComponent: React.FC = () => {
 
   return (
     <div>
-      <InputSearch
+      {/* <InputSearch
+        procedencia="projectslist"
         onSearchResults={handleSearchResults}
         onResetResults={handleResetResults}
-      />
+      /> */}
 
       {filteredTestSuites.length || testSuites.length ? (
         <>
@@ -109,13 +110,10 @@ const TestListComponent: React.FC = () => {
             />
           </div>
 
-          <div className="row">
+          <div>
             {(filteredTestSuites.length ? filteredTestSuites : testSuites).map(
               (test, index) => (
-                <div
-                  className="col-lg-4 col-md-6  col-xs-12 col-sm-12"
-                  key={index}
-                >
+                <div key={index}>
                   <TestCard testData={test} />
                 </div>
               )
@@ -134,4 +132,4 @@ const TestListComponent: React.FC = () => {
   );
 };
 
-export default TestListComponent;
+export default TestListByProject;

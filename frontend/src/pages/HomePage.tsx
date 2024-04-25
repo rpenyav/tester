@@ -3,13 +3,17 @@ import axios from "axios";
 import { PaginatedData } from "../interfaces/testsuite";
 import TestListComponent from "../shared/TestListComponent";
 import AddTestComponent from "../shared/AddTestComponent";
+import { TestUpdateProvider } from "../AppContext";
 
 const HomePage: React.FC = () => {
   return (
-    <div>
-      <AddTestComponent />
-      <TestListComponent />
-    </div>
+    <TestUpdateProvider>
+      <div>
+        <AddTestComponent />
+
+        <TestListComponent />
+      </div>
+    </TestUpdateProvider>
   );
 };
 

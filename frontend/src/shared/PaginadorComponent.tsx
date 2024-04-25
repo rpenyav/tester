@@ -12,12 +12,10 @@ const PaginadorComponent: React.FC<PaginadorProps> = ({
   onPageChange,
 }) => {
   useEffect(() => {
-    // Obtener el parámetro 'page' de la URL al cargar el componente
     const urlParams = new URLSearchParams(window.location.search);
     const pageParam = urlParams.get("page");
     if (pageParam) {
       const page = parseInt(pageParam);
-      // Verificar si el número de página obtenido de la URL es válido
       if (!isNaN(page) && page >= 1 && page <= totalPages) {
         onPageChange(page);
       }
@@ -26,19 +24,18 @@ const PaginadorComponent: React.FC<PaginadorProps> = ({
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
-    // Modificar la URL del navegador al cambiar de página
     window.history.pushState(null, "", `?page=${page}`);
   };
 
   return (
     <nav aria-label="Page navigation">
-      <ul className="pagination">
+      <ul className="pagination justify-content-end">
         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
           <button
             className="page-link"
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
           >
-            Previous
+            &laquo;
           </button>
         </li>
         {Array.from({ length: totalPages }, (_, i) => (
@@ -47,7 +44,9 @@ const PaginadorComponent: React.FC<PaginadorProps> = ({
             key={i}
           >
             <button
-              className="page-link"
+              className={`page-link ${
+                currentPage === i + 1 ? "active-page" : ""
+              }`}
               onClick={() => handlePageChange(i + 1)}
             >
               {i + 1}
@@ -65,7 +64,7 @@ const PaginadorComponent: React.FC<PaginadorProps> = ({
               handlePageChange(Math.min(totalPages, currentPage + 1))
             }
           >
-            Next
+            &raquo;
           </button>
         </li>
       </ul>

@@ -22,7 +22,9 @@ const LoginPage = () => {
         password,
       });
 
-      localStorage.setItem("token", response.data.access_token);
+      const token = response.data.access_token;
+
+      localStorage.setItem("token", token);
       navigate("/home");
     } catch (error: unknown) {
       alert("Login fallido: ");

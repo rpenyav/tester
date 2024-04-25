@@ -15,12 +15,30 @@ $theme-colors: (
 @import "~bootstrap/scss/bootstrap";
 
 body {
+  background-color: rgb(181, 246, 255);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: #333333;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+.top-back {
+  background-color: rgb(40, 32, 54) !important;
+  color: #ffffff;
+}
+.top-transparent {
+  background-color: transparent;
 }
 
 code {
@@ -45,4 +63,144 @@ footer {
 .array-underlined {
   border-bottom: 1px solid #000;
   padding-bottom: 5px;
+}
+
+.newtest {
+  margin-top: 15px;
+  border: 2px solid #687181;
+  background-color: rgb(212, 250, 255);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+
+  label {
+    margin-right: 8px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+  }
+}
+
+.floating-button {
+  border: none; /* Sin borde */
+  outline: none; /* Sin contorno */
+  background-color: #588ec9; /* Color de fondo azul, cambia esto según tu paleta de colores */
+  color: white; /* Color del texto */
+  cursor: pointer; /* Cursor como puntero para indicar que es clickeable */
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px; /* Borde redondeado completamente para hacerlo circular */
+  font-size: 14px; /* Tamaño del texto, en este caso el símbolo + */
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 1); /* Sombra para darle profundidad */
+  width: auto; /* Ancho fijo */
+  height: 40px; /* Alto fijo */
+  padding-left: 12px;
+  padding-right: 12px;
+  display: flex; /* Usar flexbox para centrar contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+
+.floating-button:hover {
+  background-color: #535e69;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+  margin-left: 3px;
+  margin-top: 3px;
+}
+
+.color-diff {
+  background-color: #6d86a1 !important;
+}
+.color-diff-2 {
+  background-color: #d3dae0 !important;
+  colore: #7a3b3b;
+}
+.pagination .page-item .page-link {
+  padding: 0.15rem 0.3rem; /* Ajusta el padding según tus preferencias */
+}
+
+.custom-dropdown-menu .dropdown-menu {
+  position: absolute;
+  left: auto; /* Desactiva cualquier posición 'left' predefinida */
+  right: 0; /* Ajusta hacia la derecha para evitar desbordamiento */
+}
+
+@media (min-width: 768px) {
+  .custom-dropdown-menu .dropdown-menu {
+    right: 0; /* Ajustes solo para pantallas más grandes */
+  }
+}
+
+/* CSS para el botón que se vea como un enlace del menú desplegable */
+.button-as-link {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.button-as-link:hover,
+.button-as-link:focus {
+  text-decoration: underline;
+}
+
+.min-h-bread {
+  min-height: 45px;
+}
+
+.button-like-link {
+  color: #525252;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+.button-like-link:hover {
+  color: #000;
+  background-color: transparent;
+}
+
+.page-link {
+  color: #000; /* Establece el color del texto a negro */
+}
+
+.active-page {
+  background-color: #588ec9 !important;
+  color: white; /* Asegúrate de que el texto sea visible con el fondo oscuro */
+}
+
+.description-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limita el texto a tres líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 4.5em; /* Ajusta esto basado en el tamaño de línea de tu texto */
+  line-height: 1.5em; /* Asume que el tamaño de línea es 1.5em */
+}
+
+.controlled-shadow {
+  border-radius: 0px;
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.55);
+}
+
+.edit-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  color: #cccccc;
+  transition: color 0.3s;
+}
+
+.edit-icon:hover {
+  color: #333333;
 }
